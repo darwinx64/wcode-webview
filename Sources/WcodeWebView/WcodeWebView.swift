@@ -135,16 +135,25 @@ extension WebViewCoordinator: WKNavigationDelegate {
         }
     }
     
+    private func showErrorPage(_ webView: WKWebView, error: Error) {
+        let errorHTML = """
+                <html><head><style>body { background-color: #212121; color: #d9d9d9; font-family: system-ui; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; } .message { text-align: center; }</style></head><body><div class="message">Wcode Can't Load the Page</div></body></html>
+                """
+        webView.loadHTMLString(errorHTML, baseURL: nil)
+        setLoading(false, error: error)
+    }
+
+    
     public func webViewWebContentProcessDidTerminate(_ webView: WKWebView) {
         setLoading(false)
     }
     
     public func webView(_ webView: WKWebView, didFail navigation: WKNavigation!, withError error: Error) {
-        let errorHTML = """
-            <html><head><style>body { background-color: #212121; color: #d9d9d9; font-family: system-ui; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; } .message { text-align: center; }</style></head><body><div class="message">Wcode Can't Load the Page</div></body></html>
-            """
-        webView.loadHTMLString(errorHTML, baseURL: nil)
-        setLoading(false, error: error)
+        showErrorPage(webView, error: error)
+    }
+    
+    public func webView(_ webView: WKWebView, didFailProvisionalNavigation navigation: WKNavigation!, withError error: Error) {
+        showErrorPage(webView, error: error)
     }
     
     public func webView(_ webView: WKWebView, didCommit navigation: WKNavigation!) {
