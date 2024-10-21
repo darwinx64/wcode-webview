@@ -141,6 +141,10 @@ extension WebViewCoordinator: WKNavigationDelegate {
     
     public func webView(_ webView: WKWebView, didFail navigation: WKNavigation!, withError error: Error) {
         setLoading(false, error: error)
+        let errorHTML = """
+            <html><head><style>body { background-color: #212121; color: #d9d9d9; font-family: system-ui; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; } .message { text-align: center; }</style></head><body><div class="message">Wcode Can't Load the Page</div></body></html>
+            """
+        webView.loadHTMLString(errorHTML, baseURL: nil)
     }
     
     public func webView(_ webView: WKWebView, didCommit navigation: WKNavigation!) {

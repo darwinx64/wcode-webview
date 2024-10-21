@@ -17,7 +17,7 @@ https://github.com/globulus/swiftui-webview
 You can also use **CocoaPods**:
 
 ```ruby
-pod 'SwiftUIWebView', '~> 1.0.8'
+pod 'WcodeWebView', '~> 1.0.8'
 ```
 
 ## Sample usage
@@ -51,7 +51,7 @@ pod 'SwiftUIWebView', '~> 1.0.8'
  * Optional **schemeHandlers** allow you to invoke a custom callback whenever the user navigates to a site with the given scheme.
 
 ```swift
-import SwiftUIWebView
+import WcodeWebView
 
 struct WebViewTest: View {
     @State private var action = WebViewAction.idle
